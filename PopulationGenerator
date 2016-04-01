@@ -1,0 +1,53 @@
+package lab3.foxesAndRabbits2;
+
+import java.awt.Color;
+import java.util.List;
+import java.util.Random;
+
+import lab3.foxesAndRabbits2.Animal;
+import lab3.foxesAndRabbits2.Fox;
+import lab3.foxesAndRabbits2.Wolf;
+import lab3.foxesAndRabbits2.Rabbit;
+import lab3.foxesAndRabbits2.SimulatorView;
+import lab3.foxesAndRabbits2.Randomizer;
+
+/**
+ * A class to generate the actors of the simulation.
+ * 
+ * @author David J. Barnes and Michael Kolling and Poul Henricksen
+ * @version 2008.03.30
+ */
+public class PopulationGenerator
+{
+  
+    private static final double FOX_CREATION_PROBABILITY = 0.02;
+  
+    private static final double RABBIT_CREATION_PROBABILITY = 0.08; 
+ 
+    private static final double WOLF_CREATION_PROBABILITY = 0.01; 
+
+
+    public static void populate(Field field, List<Animal> animals)
+    {
+        Random rand = Randomizer.getRandom();
+        for(int row = 0; row < field.getDepth(); row++) {
+            for(int col = 0; col < field.getWidth(); col++) {
+                if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Fox fox = new Fox(true, field, location);
+                    animals.add(fox);
+                }
+                else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Rabbit rabbit = new Rabbit(true, field, location);
+                    animals.add(rabbit);
+                }
+                else if(rand.nextDouble() <= WOLF_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Wolf Wolf = new Wolf(true, field, location);
+                    animals.add(Wolf);
+                }
+            }
+        }
+    }
+}
